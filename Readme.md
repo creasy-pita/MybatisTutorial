@@ -3,6 +3,8 @@
     引入mybatis,mysql connector 依赖
     database setup   创建 student表
     MYBATIS - Configuration XML
+## chapter02
+springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
 
 
 错误记录：
