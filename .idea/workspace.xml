@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5c6cd13-f8b5-42c0-a825-8cf0379be9bb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MybatisTutorial.iml" afterPath="$PROJECT_DIR$/MybatisTutorial.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Readme.md" afterPath="$PROJECT_DIR$/Readme.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter02/pom.xml" afterPath="$PROJECT_DIR$/chapter02/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter02/src/main/java/com/creasypita/learning/controller/StudentController.java" afterPath="$PROJECT_DIR$/chapter02/src/main/java/com/creasypita/learning/controller/StudentController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter02/src/main/java/com/creasypita/learning/mappers/StudentMapper.java" afterPath="$PROJECT_DIR$/chapter02/src/main/java/com/creasypita/learning/mappers/StudentMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/chapter02/src/main/WEB-INF/config/springConfig.xml" afterPath="$PROJECT_DIR$/chapter02/src/main/webapp/WEB-INF/config/springConfig.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/chapter02/src/main/WEB-INF/jsp/StudentList.jsp" afterPath="$PROJECT_DIR$/chapter02/src/main/webapp/WEB-INF/jsp/StudentList.jsp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/chapter02/src/main/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/chapter02/src/main/webapp/WEB-INF/web.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -40,8 +32,8 @@
         <entry file="file://$PROJECT_DIR$/Readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="230">
-                <caret line="10" column="35" lean-forward="true" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+              <first_editor relative-caret-position="460">
+                <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -1414,12 +1406,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1567414727579</updated>
-      <workItem from="1567414731768" duration="30012000" />
+      <workItem from="1567414731768" duration="30089000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30012000" />
+    <option name="totallyTimeSpent" value="30089000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
@@ -1803,8 +1795,8 @@
     <entry file="file://$PROJECT_DIR$/Readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="230">
-            <caret line="10" column="35" lean-forward="true" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+          <first_editor relative-caret-position="460">
+            <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
             <folding />
           </first_editor>
           <second_editor />

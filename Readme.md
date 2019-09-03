@@ -18,7 +18,7 @@ springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
    <property name="prefix" value="/WEB-INF/jsp/" />
    <property name="suffix" value=".jsp" />
- </bean>
+ </bean>  
  
 + 5 add mysql dirven datasource 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
