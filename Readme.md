@@ -17,4 +17,16 @@
         而不是 com.creasypita.learning.mybatis.domain.Student
     修改：    
     Student.xml 中 <mapper namespace = "com.creasypita.learning.mybatis.domain.Student">
-     namespace 修改为  <mapper namespace = "Student"> 
+     namespace 修改为  <mapper namespace = "Student">
+    
+    3 错误： Cause: org.apache.ibatis.executor.ExecutorException: No constructor found in com.creasypita.learning.mybatis.domain.Student matching [java.lang.Integer, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String]
+      ### The error may exist in mybatis/Student.xml
+      ### The error may involve Student.selectById
+      ### The error occurred while handling results
+      ### SQL: SELECT * FROM STUDENT WHERE id=?;
+      可能原因：
+        selectOne 创建 student 实例时 使用  无参构造方法 并 使用各属性的 setters 来完成整个创建操作
+        Student s = session.selectOne("Student.selectById",1); 
+      修改
+        加入 无参构造方法 
+      
