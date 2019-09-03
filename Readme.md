@@ -5,6 +5,50 @@
     MYBATIS - Configuration XML
 ## chapter02
 springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
++ 1 add the dependencies which are required by java spring + mybatis application
++ 2 Modify web.xml
+    use org.springframework.web.servlet.DispatcherServlet
+    set the init spring-config.xml 
++ 3 add  
+<mvc:annotation-driven />  
+<context:component-scan base-package="com.github.elizabetht" />
+ to indicate that the application is mvc annoation dirven and base-package  for the context component scan
+ 
++ 4 the bean InternalResourceViewResolver of Spring to locate the jsp files
+ <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+   <property name="prefix" value="/WEB-INF/jsp/" />
+   <property name="suffix" value=".jsp" />
+ </bean>
+ 
++ 5 add mysql dirven datasource 
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/huangyongsmartbookcodedemo" />
+        <property name="username" value="huangyongsmartbookcodedemo" />
+        <property name="password" value="root" />
+    </bean>
++ 6 Include the bean for transaction manager for scoping/controlling the transactions, that takes the data source defined above as reference (dependent)
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
++ 7 The MyBatis specific configurations
+    6.1 include the bean for sqlSessionFactory which is the central configuration in a MyBatis application.
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" />
+      <property name="typeAliasesPackage" value="com.github.elizabetht.model"/>
+      <property name="mapperLocations" value="classpath*:com/github/elizabetht/mappers/*.xml" />
+    </bean>
+    
+    the mapperLocations property will not used for the mapper with scan by mybatis:scan node
++ 8 Include the bean for sqlSession
+  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg index="0" ref="sqlSessionFactory" />
+  </bean>
+    
++ 9 mybatis scan
+  <mybatis:scan base-package="com.creasypita.learning.mappers"/>
+
 
 
 错误记录：
@@ -31,4 +75,20 @@ springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
         Student s = session.selectOne("Student.selectById",1); 
       修改
         加入 无参构造方法 
-      
+        
+    4 错误：
+    org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'cacheManager' is defined
+    原因
+    修改
+        参考： https://stackoverflow.com/questions/24816502/cachemanager-no-bean-found-not-trying-to-setup-any-cache
+    5 错误 The matching wildcard is strict, but no declaration can be found for element 'mvc:annotation-driven'
+      参考： https://stackoverflow.com/questions/15406231/no-declaration-can-be-found-for-element-mvcannotation-driven
+    6 错误：org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.creasypita.learning.mappers.StudentMapper] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+    7     org.springframework  spring-jdbc 没有引入 
+     通过    
+     <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-jdbc</artifactId>
+               <version>5.1.8.RELEASE</version>
+           </dependency>
+     强制引入	

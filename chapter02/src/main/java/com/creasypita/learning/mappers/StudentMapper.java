@@ -2,6 +2,8 @@ package com.creasypita.learning.mappers;
 
 import com.creasypita.learning.model.Student;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
  *
  * @ProjectName: MybatisTutorial
  */
+@Component
 public interface StudentMapper {
     @Select(value = "SELECT * FROM STUDENT;")
     List<Student> GetAll();

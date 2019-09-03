@@ -21,11 +21,11 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(value = "studentlist",method = {RequestMethod.GET})
+    @RequestMapping(value = "/studentlist",method = {RequestMethod.GET})
     public String StudentList(Model model) {
         List<Student> list = studentService.GetAll();
         model.addAttribute("students", list);
-        return "";
+        return "StudentList";
     }
 
 }
