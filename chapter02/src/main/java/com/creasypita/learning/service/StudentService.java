@@ -14,4 +14,11 @@ import java.util.List;
 public interface StudentService {
 
     List<Student> GetAll();
+    Student getById(int id);
+    void insertStudent(Student student);
+    void updateStudent(Student student);
+
+    void deleteStudent(int id);
+    void modifyNoTranactional(Student student1, Student student2);
+    void modifyTranactional(Student student1, Student student2);
 }

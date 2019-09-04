@@ -49,7 +49,20 @@ springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
 + 9 mybatis scan
   <mybatis:scan base-package="com.creasypita.learning.mappers"/>
 
+#### url
+get:/studentlist    进入student列表页面    studentList.jsp
+get:/student_view   查看studnet           student_view.jsp
+get:/student_insert 进入插入student页面       student_insert.jsp
+post:/student_insert    插入student       studentList.jsp
+get:/student_update?id={id} 进入更新student页面   student_update.jsp
+post:/student_post?id={id}  更新student           studentList.jsp
+delete:/student_delete?id={id} 删除student    studnetList.jsp
 
+jsp: 
+    studentList.jsp
+    student_insert.jsp
+    student_update.jsp
+    student_view.jsp
 
 错误记录：
     1 SqlMapConfig.xml 中的配置出错时 mybatis config的 environment 不能加载 提示 nullpointexception
@@ -92,3 +105,22 @@ springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
                <version>5.1.8.RELEASE</version>
            </dependency>
      强制引入	
+     8 
+     error: MalformedByteSequenceException: Invalid byte 2 of 2-byte UTF-8 sequence
+     reason:
+        1 xml not saved in utf-8
+        2  如下    mapperLocations 找不到xml 而去找其他文件格式的文件 时 解析出错 
+            <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property name="dataSource" ref="dataSource" />
+                <property name="typeAliasesPackage" value="com.creasypita.learning.model"/>
+                <property name="mapperLocations" value="classpath:com/creasypita/learning/mappers/*" />
+            </bean>
+            修改为
+            <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                  <property name="dataSource" ref="dataSource" />
+                  <property name="typeAliasesPackage" value="com.creasypita.learning.model"/>
+                  <!--<property name="mapperLocations" value="classpath:com/creasypita/learning/mappers/*" />-->
+              </bean>
+            reference : https://stackoverflow.com/questions/9920758/malformedbytesequenceexception-invalid-byte-2-of-2-byte-utf-8-sequence
+              
+     
