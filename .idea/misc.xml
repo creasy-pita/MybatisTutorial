@@ -2,6 +2,7 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/chapter02" />
+    <file type="web" url="file://$PROJECT_DIR$/chapter03" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

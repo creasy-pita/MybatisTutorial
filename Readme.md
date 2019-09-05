@@ -63,8 +63,25 @@ jsp:
     student_insert.jsp
     student_update.jsp
     student_view.jsp
-
-错误记录：
+###chapter03
+mapper 采用 interface + xml 形式来配置
+    1 scan mapperLocations of xml file 
+         <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+              <property name="dataSource" ref="dataSource" />
+              <property name="typeAliasesPackage" value="com.creasypita.learning.model"/>
+              <property name="mapperLocations" value="classpath*:mybatis/*.xml" />
+          </bean>
+          
+      注释
+        typeAliasesPackage  用于确定mybatis sql statement 中使用到的 type,parametertype ...
+        他们的名称需要一致
+        比如 mybatisStudent.xml 中的配置 type="Student" 与 class com.creasypita.learning.model.Student
+    2  scan mapper base package  of interface file
+    <mybatis:scan base-package="com.creasypita.learning.mappers"/>
+    
+    
+    
+## 错误记录：
     1 SqlMapConfig.xml 中的配置出错时 mybatis config的 environment 不能加载 提示 nullpointexception
     <environments default = "development">
         <environment id = "development">
@@ -96,7 +113,7 @@ jsp:
         参考： https://stackoverflow.com/questions/24816502/cachemanager-no-bean-found-not-trying-to-setup-any-cache
     5 错误 The matching wildcard is strict, but no declaration can be found for element 'mvc:annotation-driven'
       参考： https://stackoverflow.com/questions/15406231/no-declaration-can-be-found-for-element-mvcannotation-driven
-    6 错误：org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.creasypita.learning.mappers.StudentMapper] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+    6 错误：org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [com.creasypita.learning.StudentMapper] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
     7     org.springframework  spring-jdbc 没有引入 
      通过    
      <dependency>

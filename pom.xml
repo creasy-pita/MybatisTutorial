@@ -6,5 +6,9 @@
 
     <groupId>com.creasypita.learning</groupId>
     <artifactId>MybatisTutorial</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>chapter03</module>
+    </modules>
 </project>
