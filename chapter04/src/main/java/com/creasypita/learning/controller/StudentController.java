@@ -80,6 +80,8 @@ public class StudentController {
         return "redirect:student";
     }
 
+
+
     @RequestMapping(value="/modifyTranactional",method = RequestMethod.GET)
     public String modifyTranactional() {
         Student s1 = studentService.getById(1);

@@ -80,6 +80,18 @@ public class StudentController {
         return "redirect:student";
     }
 
+    @RequestMapping(value="/insertStudentRequired", method = RequestMethod.GET)
+    public String insertStudentRequired() {
+        Student s1 = new Student("name1", "1", 11, 11, "email1");
+        studentService.insertStudentRequired(s1);
+        return "redirect:student";
+    }
+    @RequestMapping(value="/insertStudentRequiredNew", method = RequestMethod.GET)
+    public String insertStudentRequiredNew() {
+        Student s1 = new Student("name1", "2", 11, 11, "email1");
+        studentService.insertStudentRequiredNew(s1);
+        return "redirect:student";
+    }
     @RequestMapping(value="/modifyTranactional",method = RequestMethod.GET)
     public String modifyTranactional() {
         Student s1 = studentService.getById(1);

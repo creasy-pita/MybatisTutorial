@@ -41,6 +41,19 @@
     </bean>
 
     <mybatis:scan base-package="com.creasypita.learning.mappers"/>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <!--<tx:method name="modifyNoTranactional" read-only="true"/>-->
+            <tx:method name="*" />
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>
+        <aop:pointcut id="studentServiceOperation" expression="execution(* com.creasypita.learning.service.*.*(..))
+                        and !execution(* com.creasypita.learning.service.StudentServiceImpl.modifyNoTranactional(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="studentServiceOperation"/>
+    </aop:config>
 
     <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
         <!--<property name="basePackage" value="com.creasypita.learning.mappers.*" />-->

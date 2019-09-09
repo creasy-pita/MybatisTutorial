@@ -3,6 +3,8 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/chapter02" />
     <file type="web" url="file://$PROJECT_DIR$/chapter03" />
+    <file type="web" url="file://$PROJECT_DIR$/chapter04" />
+    <file type="web" url="file://$PROJECT_DIR$/chapter05" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -10,6 +12,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/chapter01/pom.xml" />
         <option value="$PROJECT_DIR$/chapter02/pom.xml" />
+        <option value="$PROJECT_DIR$/chapter04/pom.xml" />
       </list>
     </option>
   </component>

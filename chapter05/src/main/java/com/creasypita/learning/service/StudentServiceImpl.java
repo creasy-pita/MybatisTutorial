@@ -4,6 +4,7 @@ import com.creasypita.learning.mappers.StudentMapper;
 import com.creasypita.learning.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+    @Autowired
+    private InnerService innerService;
+
     public List<Student> GetAll() {
         return studentMapper.GetAll();
     }
@@ -27,12 +31,47 @@ public class StudentServiceImpl implements StudentService {
         return studentMapper.getById(id);
     }
 
+    public void insertStudents(List<Student> students) {
+        studentMapper.insertStudents(students);
+    }
+
     public void insertStudent(Student student) {
         studentMapper.insertStudent(student);
     }
 
-    public void insertStudents(List<Student> students) {
-        studentMapper.insertStudents(students);
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void insertStudentRequired(Student student)
+    {
+        insertStudent(student);
+        try {
+            //testRequired();
+            innerService.testRequired();
+        } catch (RuntimeException ex) {
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void testRequired()
+    {
+        throw new RuntimeException("testRequired");
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void insertStudentRequiredNew(Student student)
+    {
+        insertStudent(student);
+        try {
+            testRequiredNew();
+            innerService.testRequiredNew();
+        } catch (RuntimeException ex) {
+
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void testRequiredNew()
+    {
+        throw new RuntimeException("testRequiredNew");
     }
 
     public void updateStudent(Student student) {

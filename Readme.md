@@ -11,7 +11,7 @@ springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
     set the init spring-config.xml 
 + 3 add  
 <mvc:annotation-driven />  
-<context:component-scan base-package="com.github.elizabetht" />
+<context:component-scan base-package="com.creasypita.learning" />
  to indicate that the application is mvc annoation dirven and base-package  for the context component scan
  
 + 4 the bean InternalResourceViewResolver of Spring to locate the jsp files
@@ -36,8 +36,8 @@ springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
     6.1 include the bean for sqlSessionFactory which is the central configuration in a MyBatis application.
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource" />
-      <property name="typeAliasesPackage" value="com.github.elizabetht.model"/>
-      <property name="mapperLocations" value="classpath*:com/github/elizabetht/mappers/*.xml" />
+      <property name="typeAliasesPackage" value="com.creasypita.learning.model"/>
+      <property name="mapperLocations" value="classpath*:com/creasypita/learning/mappers/*.xml" />
     </bean>
     
     the mapperLocations property will not used for the mapper with scan by mybatis:scan node
@@ -76,10 +76,49 @@ mapper 采用 interface + xml 形式来配置
         typeAliasesPackage  用于确定mybatis sql statement 中使用到的 type,parametertype ...
         他们的名称需要一致
         比如 mybatisStudent.xml 中的配置 type="Student" 与 class com.creasypita.learning.model.Student
+        
+        如果 不一致会提示 如一下错误：  java.lang.ClassNotFoundException: Cannot find class: Student
     2  scan mapper base package  of interface file
     <mybatis:scan base-package="com.creasypita.learning.mappers"/>
     
+###chapter05
+spring propagation practise spring 事务传播练习  
+
+Propagation.REQUIRED 不工作的一个例子
+
+涉及事务传播的调用点
+    1 studentcontroller action 中调用 studentservice.insertStudentRequired();
+    2 studentservice  调用 insertStudent
+    3 studentservice  调用 testRequired
+
+    1 中 caller 是 studentcontroller， 还没有开启事务，所以会开启事务
+    2 中 insertStudent并没有使用事务注解，所以不会获取事务，也不会开启新事务
+    3 中 testRequired 注解为 Propagation.REQUIRED ,但 studentservice 没有开启事务，所以会开启一个新事务
     
+    代码段如下， 详见 Studentserviceimpl
+    public void insertStudent(Student student) {
+        studentMapper.insertStudent(student);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void insertStudentRequired(Student student)
+    {
+        insertStudent(student);
+        try {
+            testRequired();
+        } catch (RuntimeException ex) {
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void testRequired()
+    {
+        throw new RuntimeException("testRequired");
+    }
+
+
+testRquired testRquiredNew   写在 studentserviceimpl 中  Propagation.REQUIRED 不生效
+testRquired testRquiredNew   写在 Innserservice 中 然后 注入到 studentserviceimpl  Propagation.REQUIRED 生效
     
 ## 错误记录：
     1 SqlMapConfig.xml 中的配置出错时 mybatis config的 environment 不能加载 提示 nullpointexception

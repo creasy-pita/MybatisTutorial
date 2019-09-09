@@ -43,6 +43,7 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.deleteStudent(id);
     }
 
+
     /**
      * no Tranaction  just persistant the first updateStudent modification when the Percentage greater than 10
      * @param student1
@@ -60,7 +61,6 @@ public class StudentServiceImpl implements StudentService {
      * @param student1
      * @param student2
      */
-    @Transactional
     public void modifyTranactional(Student student1, Student student2) {
         studentMapper.updateStudent(student1);
         if(student1.getPercentage()>10)

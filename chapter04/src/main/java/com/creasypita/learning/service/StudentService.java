@@ -16,6 +16,7 @@ public interface StudentService {
     Student getById(int id);
     void insertStudent(Student student);
     void insertStudents(List<Student> students);
+
     void updateStudent(Student student);
 
     void deleteStudent(int id);
