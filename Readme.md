@@ -84,17 +84,25 @@ mapper 采用 interface + xml 形式来配置
 ###chapter05
 spring propagation practise spring 事务传播练习  
 
-Propagation.REQUIRED 不工作的一个例子
+重点 
+    @service 注解类中的方法类调用时  spring事务切面方式还是原始调用，只有spring事务切面方式 才有事务传播处理
 
+问题：
+    Propagation.REQUIRED 不工作的一个例子
+    详细描述：
+        testRquired testRquiredNew   写在 studentserviceimpl 中  Propagation.REQUIRED 不生效
+        testRquired testRquiredNew   写在 Innserservice 中 然后 注入到 studentserviceimpl  Propagation.REQUIRED 生效
+    原因： 写在 studentserviceimpl 中  和 写在 Innserservice 中 testRquired方法 调用的不同之处
+           Innserservice的 testRquired方法实际会加入事务切面去执行，所以有事务传播管理；
+           而 studentserviceimpl 的 testRquired 方法 只是简单的调用，没有spring的事务传播管理，所以报错也不会引起事务回滚（ insertStudentRequired方法才会加入事务切面去执行）
+    解决：
+        studentserviceimpl 中 insertStudentRequired，insertStudentRequiredNew 方法 内部调用的方法 都会使用 同一事务，如果有外部service调用则会根据他的事务传播属性来管理
+        
 涉及事务传播的调用点
     1 studentcontroller action 中调用 studentservice.insertStudentRequired();
     2 studentservice  调用 insertStudent
     3 studentservice  调用 testRequired
 
-    1 中 caller 是 studentcontroller， 还没有开启事务，所以会开启事务
-    2 中 insertStudent并没有使用事务注解，所以不会获取事务，也不会开启新事务
-    3 中 testRequired 注解为 Propagation.REQUIRED ,但 studentservice 没有开启事务，所以会开启一个新事务
-    
     代码段如下， 详见 Studentserviceimpl
     public void insertStudent(Student student) {
         studentMapper.insertStudent(student);
@@ -117,8 +125,48 @@ Propagation.REQUIRED 不工作的一个例子
     }
 
 
-testRquired testRquiredNew   写在 studentserviceimpl 中  Propagation.REQUIRED 不生效
-testRquired testRquiredNew   写在 Innserservice 中 然后 注入到 studentserviceimpl  Propagation.REQUIRED 生效
+
+### 一张图理清  spring 事务的大致调用堆栈流程, 
+    	1 studentcontroller  调用 注解为@service 的 StudentService的代理即 JdkDynamicAopProxy
+    	2 JdkDynamicAopProxy#invoke ：
+    	Get the interception chain for this method  List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass); ：事务代理链  最终会通过InvokeJointPoint 调用targetobject  targetmethod
+    	3 以 MethodInvocation 组织 proxy 链 ，执行时会按 chain 方式处理以知道 joinpoint
+    					// We need to create a method invocation...
+    				MethodInvocation invocation =
+    						new ReflectiveMethodInvocation(proxy, target, method, args, targetClass, chain);
+    				// Proceed to the joinpoint through the interceptor chain.
+    				retVal = invocation.proceed();
+    	4 spring 事务代理链第一个会是  TransactionInterceptor ，结合 TransactionAttribute TransactionDefinition TransactionAspectSupport  PlatformTransactionManager 等完成事务的管理
+    	5 TransactionInterceptor#invoke   
+    	6 TransactionAspectSupport #invokeWithinTransaction  
+    	7 TransactionAspectSupport # createTransactionIfNecessary
+    	8 AbstractPlatformTransactionManager #getTransaction
+    	9 DataSourceTransactionManager#doGetTransaction   ： 从上下文中获取之前的事务信息，用于后续的事务处理
+    	10 DataSourceTransactionManager#isExistingTransaction：如果存在走 第11,否则跳到 12
+    	11 AbstractPlatformTransactionManager#handleExistingTransaction ： 根据本次targetmethod 定义事务属性（比如传播属性）to find out how to behave  ,然后 跳转到13
+    	12 之前不存在事务情况， 根据本次targetmethod 定义事务属性，to find out how to behave ,然后跳转到13
+    	13 继续 TransactionAspectSupport # invokeWithinTransaction 的后续代码：
+    		1 调用下一个 interceptor in the chain
+    		2 抛异常时 事务异常处理
+    		3 无异常时提交 事务提交并返回上一层
+    			try {
+    			// This is an around advice: Invoke the next interceptor in the chain.
+    			// This will normally result in a target object being invoked.
+    			retVal = invocation.proceedWithInvocation();
+    			}
+    			catch (Throwable ex) {
+    				// target invocation exception
+    				completeTransactionAfterThrowing(txInfo, ex);
+    				throw ex;
+    			}
+    			finally {
+    				cleanupTransactionInfo(txInfo);
+    			}
+    			commitTransactionAfterReturning(txInfo);
+    			return retVal;
+    	
+    	
+    	注： 此处还未添加 Suspending| Unsuspending current transaction 的说明
     
 ## 错误记录：
     1 SqlMapConfig.xml 中的配置出错时 mybatis config的 environment 不能加载 提示 nullpointexception

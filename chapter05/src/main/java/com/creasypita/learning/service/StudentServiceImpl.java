@@ -34,7 +34,7 @@ public class StudentServiceImpl implements StudentService {
     public void insertStudents(List<Student> students) {
         studentMapper.insertStudents(students);
     }
-
+    @Transactional(propagation = Propagation.REQUIRED)
     public void insertStudent(Student student) {
         studentMapper.insertStudent(student);
     }
@@ -61,7 +61,7 @@ public class StudentServiceImpl implements StudentService {
     {
         insertStudent(student);
         try {
-            testRequiredNew();
+            //testRequiredNew();
             innerService.testRequiredNew();
         } catch (RuntimeException ex) {
 
