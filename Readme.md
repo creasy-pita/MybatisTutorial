@@ -49,20 +49,21 @@ springconfig.xml 中 dataSource 不同  mybatis-spring 版本 实现类不同
 + 9 mybatis scan
   <mybatis:scan base-package="com.creasypita.learning.mappers"/>
 
-#### url
-get:/studentlist    进入student列表页面    studentList.jsp
-get:/student_view   查看studnet           student_view.jsp
-get:/student_insert 进入插入student页面       student_insert.jsp
-post:/student_insert    插入student       studentList.jsp
-get:/student_update?id={id} 进入更新student页面   student_update.jsp
-post:/student_post?id={id}  更新student           studentList.jsp
-delete:/student_delete?id={id} 删除student    studnetList.jsp
+#### url设计
+    get:/studentlist    进入student列表页面    studentList.jsp
+    get:/student_view   查看studnet           student_view.jsp
+    get:/student_insert 进入插入student页面       student_insert.jsp
+    post:/student_insert    插入student       studentList.jsp
+    get:/student_update?id={id} 进入更新student页面   student_update.jsp
+    post:/student_post?id={id}  更新student           studentList.jsp
+    delete:/student_delete?id={id} 删除student    studnetList.jsp
 
-jsp: 
-    studentList.jsp
-    student_insert.jsp
-    student_update.jsp
-    student_view.jsp
+    jsp: 
+        studentList.jsp
+        student_insert.jsp
+        student_update.jsp
+        student_view.jsp
+    
 ###chapter03
 mapper 采用 interface + xml 形式来配置
     1 scan mapperLocations of xml file 
@@ -81,48 +82,49 @@ mapper 采用 interface + xml 形式来配置
     2  scan mapper base package  of interface file
     <mybatis:scan base-package="com.creasypita.learning.mappers"/>
     
-###chapter05
+
+### chapter05
 spring propagation practise spring 事务传播练习  
 
-重点 
-    @service 注解类中的方法类调用时  spring事务切面方式还是原始调用，只有spring事务切面方式 才有事务传播处理
-
-问题：
-    Propagation.REQUIRED 不工作的一个例子
-    详细描述：
-        testRquired testRquiredNew   写在 studentserviceimpl 中  Propagation.REQUIRED 不生效
-        testRquired testRquiredNew   写在 Innserservice 中 然后 注入到 studentserviceimpl  Propagation.REQUIRED 生效
-    原因： 写在 studentserviceimpl 中  和 写在 Innserservice 中 testRquired方法 调用的不同之处
-           Innserservice的 testRquired方法实际会加入事务切面去执行，所以有事务传播管理；
-           而 studentserviceimpl 的 testRquired 方法 只是简单的调用，没有spring的事务传播管理，所以报错也不会引起事务回滚（ insertStudentRequired方法才会加入事务切面去执行）
-    解决：
-        studentserviceimpl 中 insertStudentRequired，insertStudentRequiredNew 方法 内部调用的方法 都会使用 同一事务，如果有外部service调用则会根据他的事务传播属性来管理
-        
-涉及事务传播的调用点
-    1 studentcontroller action 中调用 studentservice.insertStudentRequired();
-    2 studentservice  调用 insertStudent
-    3 studentservice  调用 testRequired
-
-    代码段如下， 详见 Studentserviceimpl
-    public void insertStudent(Student student) {
-        studentMapper.insertStudent(student);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void insertStudentRequired(Student student)
-    {
-        insertStudent(student);
-        try {
-            testRequired();
-        } catch (RuntimeException ex) {
+    重点 
+        @service 注解类中的方法类调用时  spring事务切面方式还是原始调用，只有spring事务切面方式 才有事务传播处理
+    
+    问题：
+        Propagation.REQUIRED 不工作的一个例子
+        详细描述：
+            testRquired testRquiredNew   写在 studentserviceimpl 中  Propagation.REQUIRED 不生效
+            testRquired testRquiredNew   写在 Innserservice 中 然后 注入到 studentserviceimpl  Propagation.REQUIRED 生效
+        原因： 写在 studentserviceimpl 中  和 写在 Innserservice 中 testRquired方法 调用的不同之处
+               Innserservice的 testRquired方法实际会加入事务切面去执行，所以有事务传播管理；
+               而 studentserviceimpl 的 testRquired 方法 只是简单的调用，没有spring的事务传播管理，所以报错也不会引起事务回滚（ insertStudentRequired方法才会加入事务切面去执行）
+        解决：
+            studentserviceimpl 中 insertStudentRequired，insertStudentRequiredNew 方法 内部调用的方法 都会使用 同一事务，如果有外部service调用则会根据他的事务传播属性来管理
+            
+    涉及事务传播的调用点
+        1 studentcontroller action 中调用 studentservice.insertStudentRequired();
+        2 studentservice  调用 insertStudent
+        3 studentservice  调用 testRequired
+    
+        代码段如下， 详见 Studentserviceimpl
+        public void insertStudent(Student student) {
+            studentMapper.insertStudent(student);
         }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void testRequired()
-    {
-        throw new RuntimeException("testRequired");
-    }
+    
+        @Transactional(propagation = Propagation.REQUIRED)
+        public void insertStudentRequired(Student student)
+        {
+            insertStudent(student);
+            try {
+                testRequired();
+            } catch (RuntimeException ex) {
+            }
+        }
+    
+        @Transactional(propagation = Propagation.REQUIRED)
+        public void testRequired()
+        {
+            throw new RuntimeException("testRequired");
+        }
 
 
 
