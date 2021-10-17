@@ -1,6 +1,6 @@
-package com.creasypita.learning.mybatis;
+package com.creasypita.learning.model;
 
-import com.creasypita.learning.mybatis.domain.Student;
+import com.creasypita.learning.model.domain.Student;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

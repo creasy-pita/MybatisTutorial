@@ -180,12 +180,12 @@ spring propagation practise spring 事务传播练习
     原因：
         SqlSession session.insert("Student.insert", student);
         使用 namespace=Student
-        而不是 com.creasypita.learning.mybatis.domain.Student
+        而不是 com.creasypita.learning.model.domain.Student
     修改：    
-    Student.xml 中 <mapper namespace = "com.creasypita.learning.mybatis.domain.Student">
+    Student.xml 中 <mapper namespace = "com.creasypita.learning.model.domain.Student">
      namespace 修改为  <mapper namespace = "Student">
     
-    3 错误： Cause: org.apache.ibatis.executor.ExecutorException: No constructor found in com.creasypita.learning.mybatis.domain.Student matching [java.lang.Integer, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String]
+    3 错误： Cause: org.apache.ibatis.executor.ExecutorException: No constructor found in com.creasypita.learning.model.domain.Student matching [java.lang.Integer, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String]
       ### The error may exist in mybatis/Student.xml
       ### The error may involve Student.selectById
       ### The error occurred while handling results

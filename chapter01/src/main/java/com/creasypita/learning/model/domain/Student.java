@@ -1,4 +1,4 @@
-package com.creasypita.learning.mybatis.domain;
+package com.creasypita.learning.model.domain;
 
 /**
  * Created by creasypita on 9/2/2019.
