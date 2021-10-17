@@ -8,6 +8,9 @@
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </properties>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
     <typeAliases>
         <typeAlias type="com.creasypita.learning.model.User" alias="user"/>
     </typeAliases>

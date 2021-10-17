@@ -139,3 +139,33 @@ mybatis在select的结果集转为JavaBean默认有一个`resultMap`,把结果�
     </select>
 ```
 
+## 日志
+
+
+
+```xml
+<!--mybatis xml配置中的setting-->     
+	<settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+```
+
+```log
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+PooledDataSource forcefully closed/removed all connections.
+PooledDataSource forcefully closed/removed all connections.
+PooledDataSource forcefully closed/removed all connections.
+PooledDataSource forcefully closed/removed all connections.
+Opening JDBC Connection
+Created connection 490150701.
+Setting autocommit to false on JDBC Connection [com.mysql.jdbc.JDBC4Connection@1d371b2d]
+==>  Preparing: select id , name,pwd, user_age as age from User where id = ? 
+==> Parameters: 1(Integer)
+<==    Columns: id, name, pwd, age
+<==        Row: 1, a, a, 1
+<==      Total: 1
+Resetting autocommit to true on JDBC Connection [com.mysql.jdbc.JDBC4Connection@1d371b2d]
+Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@1d371b2d]
+Returned connection 490150701 to pool.
+```
+
