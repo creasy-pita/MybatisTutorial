@@ -1,22 +1,21 @@
 package com.creasypita.learning.model;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by lujq on 10/17/2021.
  */
-public class User {
+public class Teacher {
     private int id;
     private String name;
-    private String pwd;
-    private int age;
+    private List<Student> studentList;
 
-    public int getAge() {
-        return age;
+    public List<Student> getStudentList() {
+        return studentList;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
     }
 
     public int getId() {
@@ -33,13 +32,5 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
     }
 }

@@ -28,5 +28,7 @@
     <mappers>
         <!-- 使用相对于类路径的资源引用 -->
         <mapper resource="com/creasypita/learning/Dao/UserMapper.xml"/>
+        <mapper resource="com/creasypita/learning/Dao/StudentMapper.xml"/>
+        <mapper resource="com/creasypita/learning/Dao/TeacherMapper.xml"/>
     </mappers>
 </configuration>

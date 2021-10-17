@@ -169,3 +169,9 @@ Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@1d371b2d]
 Returned connection 490150701 to pool.
 ```
 
+
+
+## 其他
+
+### 1、序列
+

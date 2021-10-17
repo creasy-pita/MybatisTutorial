@@ -1,6 +1,7 @@
 package com.creasypita.learning.Dao;
 
 import com.creasypita.learning.Util.MybatisUtil;
+import com.creasypita.learning.model.Student;
 import com.creasypita.learning.model.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -10,11 +11,24 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by lujq on 10/17/2021.
  */
 public class DaoTest {
+
+    @Test
+    public void findStudents(){
+        SqlSession sqlSession = MybatisUtil.openSession();
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        List<Student> students = mapper.findStudents();
+        for (Student student : students) {
+            System.out.println(student);
+        }
+        sqlSession.close();
+    }
+
     @Test
     public void findUserById(){
         SqlSession sqlSession = MybatisUtil.openSession();
