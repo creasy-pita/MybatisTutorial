@@ -3,6 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <properties resource="db.properties">
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </properties>
     <typeAliases>
         <typeAlias type="com.creasypita.learning.model.User" alias="user"/>
     </typeAliases>
@@ -10,14 +15,15 @@
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://192.168.11.5:3306/rules_engine_ljq?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2b8&amp;allowMultiQueries=true"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
+        <!-- 使用相对于类路径的资源引用 -->
         <mapper resource="com/creasypita/learning/Dao/UserMapper.xml"/>
     </mappers>
 </configuration>

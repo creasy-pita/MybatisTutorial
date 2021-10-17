@@ -29,8 +29,8 @@ public class DaoTest {
         SqlSession sqlSession = MybatisUtil.openSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User user = new User();
-        user.setId(2);
-        user.setName("tokio");
+        user.setId(3);
+        user.setName("canada");
         user.setPwd("123");
         mapper.addUser(user);
         sqlSession.commit();
