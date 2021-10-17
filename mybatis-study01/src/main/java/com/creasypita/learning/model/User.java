@@ -1,9 +1,11 @@
 package com.creasypita.learning.model;
 
+import java.io.Serializable;
+
 /**
  * Created by lujq on 10/17/2021.
  */
-public class User {
+public class User implements Serializable {
     private int id;
     private String name;
     private String pwd;

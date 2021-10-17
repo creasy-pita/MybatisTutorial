@@ -52,3 +52,16 @@
 别名优化
 
 输入的类型
+
+
+
+分析错误：
+
+-  Could not resolve type alias
+
+  不能解析这个别名
+
+```log
+Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'user1'
+```
+
