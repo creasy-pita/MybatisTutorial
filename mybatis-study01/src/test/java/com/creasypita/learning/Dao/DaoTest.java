@@ -21,7 +21,10 @@ public class DaoTest {
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User user = mapper.findUserById(1);
         sqlSession.close();
-        System.out.println(user);
+        System.out.println(user.getId());
+        System.out.println(user.getName());
+        System.out.println(user.getPwd());
+        System.out.println(user.getAge());
     }
 
     @Test
@@ -32,6 +35,7 @@ public class DaoTest {
         user.setId(3);
         user.setName("canada");
         user.setPwd("123");
+        user.setAge(12);
         mapper.addUser(user);
         sqlSession.commit();
         sqlSession.close();

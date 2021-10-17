@@ -29,7 +29,7 @@
 
 
 
-### 5、 分析错误
+### n、 分析错误
 
 - 事务手动提交
 
@@ -47,7 +47,7 @@
 
   
 
-## 配置xml
+## xml配置
 
 ### 1、类型别名
 
@@ -87,7 +87,7 @@ managed – 这个配置几乎没做什么。它从不提交或回滚一个连�
 
 可以使用几种方式：相对于`类路径的资源引用`，或`完全限定资源定位符`（包括 `file:///` 形式的 URL），或`类名`和`包名`等
 
-> 这里需要注意有些方式mapper接口，mapper.xml的文件名需要相同
+> 这里需要注意有些方式`mapper`接口，`mapper.xml`的文件名需要相同
 
 ### n、分析错误：
 
@@ -99,4 +99,43 @@ managed – 这个配置几乎没做什么。它从不提交或回滚一个连�
 Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'user1'
 ```
 
-### 
+## xml映射文件
+
+
+
+### 1、结果映射（resultMap）
+
+resultMap配置了数据库中的结果即字段到加载成对象的属性的一个映射关系。默认情况下字段加载成同名的对象属性。ResultMap 的设计思想是，对简单的语句做到零配置，对于复杂一点的语句，只需要描述语句之间的关系就行了
+
+> :a: 注意 它是`结果集`到`JavaBean`的映射，而不是相反
+
+如下情况
+
+```java
+public class User implements Serializable {
+    private int id;
+    private String name;
+    private String pwd;
+    private int age;
+}
+```
+
+```xml
+<!-- user_age 不能正确映射到user的age字段-->    
+	<select id="findUserById" resultType="com.xxx.User">
+        select id , name,pwd, user_age as age from User where id = #{id}
+    </select>
+```
+
+mybatis在select的结果集转为JavaBean默认有一个`resultMap`,把结果集字段名同名的映射到avaBean属性。所以
+
+```xml
+    <resultMap id="userMap" type="user">
+        <result column="user_age" property="age"/>
+    </resultMap>    
+<!--借助显示的resultMap字段映射， user_age 正确映射到user的age字段--> 
+	<select id="findUserById" resultMap="userMap">
+        select id, name,pwd, user_age as age from User where id = #{id}
+    </select>
+```
+
