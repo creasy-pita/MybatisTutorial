@@ -30,6 +30,17 @@ public class DaoTest {
     }
 
     @Test
+    public void findStudents2(){
+        SqlSession sqlSession = MybatisUtil.openSession();
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        List<Student> students = mapper.findStudents2();
+        for (Student student : students) {
+            System.out.println(student);
+        }
+        sqlSession.close();
+    }
+
+    @Test
     public void findUserById(){
         SqlSession sqlSession = MybatisUtil.openSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);

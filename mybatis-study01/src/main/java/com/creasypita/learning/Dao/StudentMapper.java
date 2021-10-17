@@ -12,4 +12,6 @@ public interface StudentMapper {
     //获取所有学生，及其关联的老师
     public List<Student> findStudents();
 
+    public List<Student> findStudents2();
+
 }

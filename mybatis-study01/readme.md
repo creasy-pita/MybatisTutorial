@@ -169,6 +169,52 @@ Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@1d371b2d]
 Returned connection 490150701 to pool.
 ```
 
+## 多对一查询
+
+查询所有学生及其老师的信息
+
+- 按查询嵌套的处理
+
+```xml
+<mapper namespace="com.creasypita.learning.Dao.StudentMapper">
+    <resultMap id="studentTeacher" type="com.creasypita.learning.model.Student">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!--复杂查询 单独处理对象  集合  collection 或者 关联 association-->
+        <association property="teacher" column="tid" javaType="com.creasypita.learning.model.Teacher" select="findTeacher"/>
+    </resultMap>
+    <select id="findStudents" resultMap="studentTeacher" >
+        <!-- 思路
+         1 查询所有学生
+         2 根据每个学生的tid,去查询老师
+          -->
+        select * from student;
+    </select>
+
+    <select id="findTeacher" resultType="com.creasypita.learning.model.Teacher">
+        select * from teacher where id=#{id}
+    </select>
+</mapper>
+```
+
+- 按结果嵌套的处理
+
+```xml
+<!--   1 按结果嵌套方式 -->
+    <resultMap id="studentTeacher2" type="com.creasypita.learning.model.Student">
+        <result property="id" column="sid"/>
+        <result property="name" column="sname"/>
+        <!--复杂查询 单独处理对象  集合  collection 或者 关联 association-->
+        <association property="teacher" javaType="com.creasypita.learning.model.Teacher" >
+            <result property="name" column="tname"/>
+        </association>
+
+    </resultMap>
+    <select id="findStudents2" resultMap="studentTeacher2" >
+        select s.id sid ,s.name sname, t.name tname from student s, teacher t where s.tid = t.id;
+    </select>
+```
+
 
 
 ## 其他
