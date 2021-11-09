@@ -12,5 +12,6 @@
         <module>chapter03</module>
         <module>chapter05</module>
         <module>mybatis01</module>
+        <module>Spring-MybatisTest</module>
     </modules>
 </project>
