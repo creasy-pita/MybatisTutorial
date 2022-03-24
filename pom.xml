@@ -13,5 +13,6 @@
         <module>chapter05</module>
         <module>mybatis01</module>
         <module>Spring-MybatisTest</module>
+        <module>typeHandlerDemo</module>
     </modules>
 </project>
