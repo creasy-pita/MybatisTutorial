@@ -33,7 +33,7 @@ public class ConvertBlobTypeHandler extends BaseTypeHandler<String> {
         ByteArrayInputStream bis;
         byte[] bytes = parameter.getBytes(StandardCharsets.UTF_8);
         bis = new ByteArrayInputStream(bytes);
-        ps.setBinaryStream(i, bis, parameter.length());
+        ps.setBinaryStream(i, bis, bytes.length);
     }
 
     @Override
