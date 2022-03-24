@@ -4,7 +4,7 @@
     <resultMap id = "result" type = "Student">
         <result property = "id" column = "ID"/>
         <result property = "name" column = "NAME"/>
-        <result property = "icon" column = "ICON"/>
+        <result property = "icon" column = "ICON" typeHandler="learning.typeHandler.ConvertBlobTypeHandler"/>
     </resultMap>
     <insert id="insertStudent" parameterType="Student">
         INSERT INTO STUDENT (id, name, icon ) values (#{id},#{name}, #{icon});

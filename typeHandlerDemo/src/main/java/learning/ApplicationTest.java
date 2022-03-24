@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ApplicationTest {
     public static void main(String[] args) {
 
+//        insertStudent();
 //        updateStudent();
         select(3);
     }
@@ -19,11 +20,9 @@ public class ApplicationTest {
         ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
         StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
         Student student = new Student();
-        student.setName("d");
-        student.setIcon("d");
+        student.setName("f");
+        student.setIcon("f");
         studentMapper.insertStudent(student);
-
-
     }
 
     static void select(int id){
@@ -37,7 +36,7 @@ public class ApplicationTest {
         StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
 
         Student student = studentMapper.getById(3);
-        student.setIcon("dd");
+        student.setIcon("嘻嘻");
         studentMapper.updateStudent(student);
     }
 
