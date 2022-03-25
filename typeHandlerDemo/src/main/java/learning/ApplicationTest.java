@@ -1,9 +1,9 @@
 package learning;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import learning.mappers.StudentMapper;
 import learning.model.Student;
+import org.mybatis.logging.Logger;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,11 +11,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Created by lujq on 11/9/2021.
  */
 public class ApplicationTest {
-    
+
+    static {
+        org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(ApplicationTest.class);
 
     public static void main(String[] args) {
-        logger.debug("ddddd");
+        logger.debug(() -> "---------------------------------------------------------");
 //        insertStudent();
         updateStudent();
 //        select(1);

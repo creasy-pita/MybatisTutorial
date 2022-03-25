@@ -1,6 +1,7 @@
 package learning.mappers;
 
 import learning.model.Student;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
