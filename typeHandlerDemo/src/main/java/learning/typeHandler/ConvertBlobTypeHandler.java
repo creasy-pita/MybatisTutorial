@@ -26,7 +26,6 @@ public class ConvertBlobTypeHandler extends BaseTypeHandler<String> {
 
     private static String dataType = "postgres";
 
-
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType)
             throws SQLException {

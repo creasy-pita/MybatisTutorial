@@ -5,18 +5,19 @@
         <result property = "id" column = "ID"/>
         <result property = "name" column = "NAME"/>
         <result property = "icon" column = "ICON" typeHandler="learning.typeHandler.ConvertBlobTypeHandler"/>
+<!--        <result property = "icon" column = "ICON" />-->
     </resultMap>
     <insert id="insertStudent" parameterType="Student">
-        INSERT INTO STUDENT (id, name, icon ) values (#{id},#{name}, #{icon,typeHandler=learning.typeHandler.ConvertBlobTypeHandler});
+        INSERT INTO STUDENT (id, name, icon ) values (#{id},#{name}, #{icon,typeHandler=learning.typeHandler.ConvertBlobTypeHandler})
     </insert>
     <update id="updateStudent" parameterType="Student">
-        UPDATE STUDENT SET name=#{name}, icon=#{icon,typeHandler=learning.typeHandler.ConvertBlobTypeHandler} where id=#{id};
+        UPDATE STUDENT SET name=#{name}, icon=#{icon,typeHandler=learning.typeHandler.ConvertBlobTypeHandler} where id=#{id}
     </update>
     <delete id="deleteStudent" parameterType="int">
-        DELETE FROM STUDENT WHERE id=#{id};
+        DELETE FROM STUDENT WHERE id=#{id}
     </delete>
     <select id="getById" parameterType="int" resultMap="result">
-        SELECT * FROM STUDENT WHERE id=#{id};
+        SELECT * FROM STUDENT WHERE id=#{id}
     </select>
 
 </mapper>
