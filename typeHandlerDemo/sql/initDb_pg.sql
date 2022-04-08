@@ -5,3 +5,5 @@ CREATE TABLE  student(
      icon bytea
 );
 
+alter table student add create_time timestamp;
+alter table student add enabled bool;

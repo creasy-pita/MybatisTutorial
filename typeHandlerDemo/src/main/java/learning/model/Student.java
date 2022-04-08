@@ -1,6 +1,8 @@
 package learning.model;
 
 
+import java.util.Date;
+
 /**
  * Created by creasypita on 9/2/2019.
  *
@@ -10,6 +12,24 @@ public class Student {
     private int id;
     private String name;
     private String icon;
+    private Date create_time;
+    private Boolean enabled;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
+    }
 
     public int getId() {
         return id;

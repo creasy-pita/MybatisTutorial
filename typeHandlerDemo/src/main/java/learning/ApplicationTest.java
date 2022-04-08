@@ -7,6 +7,8 @@ import org.mybatis.logging.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.Date;
+
 /**
  * Created by lujq on 11/9/2021.
  */
@@ -24,7 +26,7 @@ public class ApplicationTest {
         updateStudent();
 //        select(1);
 //        select(2);
-        select(3);
+//        select(3);
 //        select(4);
 //        select(5);
     }
@@ -42,6 +44,7 @@ public class ApplicationTest {
         ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
         StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
         System.out.println(studentMapper.getById(id).getIcon());
+        System.out.println(studentMapper.getById(id).getCreate_time());
     }
 
     static void updateStudent(){
@@ -49,7 +52,11 @@ public class ApplicationTest {
         StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
 
         Student student = studentMapper.getById(3);
+        java.util.Date now = new java.util.Date();
         student.setIcon("哈哈");
+
+        student.setCreate_time(now);
+        student.setEnabled(false);
         studentMapper.updateStudent(student);
     }
 

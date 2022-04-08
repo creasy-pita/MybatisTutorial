@@ -13,3 +13,7 @@ insert into student (id,name,icon) values (2, '小xia','b');
 insert into student (id,name,icon) values (3, '小song','c');
 insert into student (id,name,icon) values (4, '小li','d');
 insert into student (id,name,icon) values (5, '小jun','e');
+
+
+alter table student add create_time timestamp;
+alter table student add enabled tinyint;

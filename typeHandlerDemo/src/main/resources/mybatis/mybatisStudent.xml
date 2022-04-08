@@ -5,13 +5,15 @@
         <result property = "id" column = "ID"/>
         <result property = "name" column = "NAME"/>
         <result property = "icon" column = "ICON" typeHandler="learning.typeHandler.ConvertBlobTypeHandler"/>
-<!--        <result property = "icon" column = "ICON" />-->
+        <!--        <result property = "icon" column = "ICON" />-->
+        <result property = "create_time" column = "create_time"/>
+        <result property = "enabled" column = "enabled" jdbcType="BIT"/>
     </resultMap>
     <insert id="insertStudent" parameterType="Student">
-        INSERT INTO STUDENT (id, name, icon ) values (#{id},#{name}, #{icon,typeHandler=learning.typeHandler.ConvertBlobTypeHandler})
+        INSERT INTO STUDENT (id, name, icon,create_time,enabled ) values (#{id},#{name}, #{icon,jdbcType=VARCHAR,typeHandler=learning.typeHandler.ConvertBlobTypeHandler}, #{create_time,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT})
     </insert>
     <update id="updateStudent" parameterType="Student">
-        UPDATE STUDENT SET name=#{name}, icon=#{icon,typeHandler=learning.typeHandler.ConvertBlobTypeHandler} where id=#{id}
+        UPDATE STUDENT SET name=#{name}, icon=#{icon,jdbcType=VARCHAR,typeHandler=learning.typeHandler.ConvertBlobTypeHandler},create_time=#{create_time,jdbcType=TIMESTAMP},enabled=#{enabled,jdbcType=BIT} where id=#{id}
     </update>
     <delete id="deleteStudent" parameterType="int">
         DELETE FROM STUDENT WHERE id=#{id}

@@ -21,16 +21,16 @@
 <!--        <property name="password" value="123456" />-->
 
 <!--        postgres-->
-            <property name="driverClassName" value="org.postgresql.Driver" />
-            <property name="url" value="jdbc:postgresql://192.168.9.186:5432/ljq?currentSchema=mybatis-study&amp;characterEncoding=utf8&amp;useSSL=true&amp;allowMultiQueries=true" />
-            <property name="username" value="postgres" />
-            <property name="password" value="postgres" />
+<!--            <property name="driverClassName" value="org.postgresql.Driver" />-->
+<!--            <property name="url" value="jdbc:postgresql://192.168.9.186:5432/ljq?currentSchema=mybatis-study&amp;characterEncoding=utf8&amp;useSSL=true&amp;allowMultiQueries=true" />-->
+<!--            <property name="username" value="postgres" />-->
+<!--            <property name="password" value="postgres" />-->
 
         <!--        oracle-->
-<!--        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />-->
-<!--        <property name="url" value="jdbc:oracle:thin:@192.168.11.42:1521:orcl" />-->
-<!--        <property name="username" value="platformljq" />-->
-<!--        <property name="password" value="platformljq" />-->
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@192.168.11.42:1521:orcl" />
+        <property name="username" value="platformljq" />
+        <property name="password" value="platformljq" />
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
