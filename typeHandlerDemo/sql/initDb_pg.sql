@@ -6,4 +6,5 @@ CREATE TABLE  student(
 );
 
 alter table student add create_time timestamp;
-alter table student add enabled bool;
+-- alter table student add enabled bool;
+alter table student add enabled numeric(1,0);

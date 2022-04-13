@@ -4,7 +4,13 @@
 ## 2022-04-08
 ## java boolean字段处理
 
-javatype=java.lang.Boolean,jdbctype=bit,后端mysql使用tinyint,pg使用bool,oracle使用Nubmer(1,0) 可以正确转化
+- javatype=java.lang.Boolean,jdbctype=bit,后端mysql使用tinyint,pg使用bool,oracle使用Nubmer(1,0) 可以正确转化
+- javatype=java.lang.Boolean,jdbctype=INTEGER,后端mysql使用tinyint,pg使用bool,oracle使用Nubmer(1,0) 可以正确转化
+- javatype=java.lang.Boolean,jdbctype=bit,后端mysql使用tinyint,oracle使用Nubmer(1,0) 可以正确转化;后端pg使用numberic(1,0) 不能正常转化 需要使用显示或隐式的转化 cast  boolean to smallint
+- javatype=java.lang.Boolean,jdbctype=INTEGER,后端mysql使用tinyint,oracle使用Nubmer(1,0) 可以正确转化;后端pg使用numberic(1,0) 不能正常转化 需要使用显示或隐式的转化 cast  boolean to smallint; boolean to integer
+  - 比如 CAST(#{xxx,jdbcType=INTEGER} AS INTEGER)
+  
+- javatype=java.lang.Boolean,jdbctype=bit,oracle使用varchar2(5)不能正常使用
 
 ## jdbc程序使用date字段处理
 
