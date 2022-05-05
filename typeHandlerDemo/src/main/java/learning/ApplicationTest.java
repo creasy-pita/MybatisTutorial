@@ -22,13 +22,18 @@ public class ApplicationTest {
 
     public static void main(String[] args) {
         logger.debug(() -> "---------------------------------------------------------");
-//        insertStudent();
+        insertStudent();
 //        updateStudent();
-        select(1);
+//        select(1);
 //        select(2);
 //        select(3);
 //        select(4);
 //        select(5);
+        java.util.Date sd = new java.util.Date();
+        java.util.Date ed = new java.util.Date();
+        sd.setDate(19);
+        ed.setDate(21);
+        selectByDate(sd, ed);
     }
 
     static void insertStudent(){
@@ -60,11 +65,20 @@ public class ApplicationTest {
 
         Student student = studentMapper.getById(1);
         java.util.Date now = new java.util.Date();
-        student.setIcon("哈哈");
+//        student.setIcon(null);
+        student.setIcon("嘻嘻");
 
         student.setCreate_time(now);
         student.setEnabled(true);
         studentMapper.updateStudent(student);
+    }
+
+    static void selectByDate(Date sd , Date ed){
+        ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
+        StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
+//        System.out.println(studentMapper.getById(id).getIcon());
+//        System.out.println(studentMapper.getById(id).getCreate_time());
+        System.out.println(studentMapper.getByDate(sd, ed));
     }
 
 

@@ -21,5 +21,8 @@
     <select id="getById" parameterType="int" resultMap="result">
         SELECT * FROM STUDENT WHERE id=#{id}
     </select>
+    <select id="getByDate" resultMap="result">
+        SELECT * FROM STUDENT WHERE create_time between #{sd} and #{ed}
+    </select>
 
 </mapper>

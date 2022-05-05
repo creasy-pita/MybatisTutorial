@@ -2,8 +2,10 @@ package learning.mappers;
 
 import learning.model.Student;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,4 +28,6 @@ public interface StudentMapper {
 
 //    @Delete("delete from student where id=#{id}")
     void deleteStudent(int id);
+
+    List<Student> getByDate(@Param("sd") Date sd, @Param("ed") Date ed);
 }

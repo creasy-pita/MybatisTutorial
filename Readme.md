@@ -18,6 +18,7 @@
 保存时默认只有年月日，时分秒没有
 - javatype=java.util.date,jdbctype=timestamp 数据库时date,timestamp字段 
   保存时默认有年月日时分秒毫秒  
+- between处理 javatype=date 类型的sd,ed mybatis中可以直接使用  between #{sd} and #{ed} ，oracle mysql,pg都支持 
 
 ## 2022-04-07
 ## jdbc程序使用jdbctype clob处理数据库字段blob 
