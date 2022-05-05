@@ -1,9 +1,6 @@
 package learning.typeHandler;
 
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-import org.apache.ibatis.type.MappedJdbcTypes;
-import org.apache.ibatis.type.MappedTypes;
+import org.apache.ibatis.type.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
@@ -27,6 +24,36 @@ public class ConvertBlobTypeHandler extends BaseTypeHandler<String> {
     private static String dataType = "postgres";
 
     @Override
+    public void setParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
+        if (parameter == null) {
+            if (jdbcType == null) {
+                throw new TypeException("JDBC requires that the JdbcType must be specified for all nullable parameters.");
+            }
+            try {
+                if ("postgres".equals(dataType)) {
+                    //单独处理postgres setnull的方式
+                    ps.setNull(i, Types.OTHER);
+                }
+                else {
+                    ps.setNull(i, jdbcType.TYPE_CODE);
+                }
+            } catch (SQLException e) {
+                throw new TypeException("Error setting null for parameter #" + i + " with JdbcType " + jdbcType + " . " +
+                        "Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property. " +
+                        "Cause: " + e, e);
+            }
+        } else {
+            try {
+                setNonNullParameter(ps, i, parameter, jdbcType);
+            } catch (Exception e) {
+                throw new TypeException("Error setting non null for parameter #" + i + " with JdbcType " + jdbcType + " . " +
+                        "Try setting a different JdbcType for this parameter or a different configuration property. " +
+                        "Cause: " + e, e);
+            }
+        }
+    }
+
+    @Override
     public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType)
             throws SQLException {
         ByteArrayInputStream bis;
@@ -44,6 +71,9 @@ public class ConvertBlobTypeHandler extends BaseTypeHandler<String> {
             return new String(bytes, StandardCharsets.UTF_8);
         }
         if(dataType.contains("postgres")){
+            byte[] bytes = rs.getBytes(columnName);
+            if (null == bytes)
+                return null;
             return new String(rs.getBytes(columnName), StandardCharsets.UTF_8);
         }
         Blob blob = rs.getBlob(columnName);
