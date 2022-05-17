@@ -1,0 +1,101 @@
+package learning;
+
+import learning.mappers.StudentMapper;
+import learning.model.Student;
+import org.mybatis.logging.Logger;
+import org.mybatis.logging.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.Date;
+
+/**
+ * Created by lujq on 11/9/2021.
+ */
+public class ApplicationTest {
+
+    static {
+        org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+    }
+
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationTest.class);
+
+    public static void main(String[] args) {
+        logger.debug(() -> "---------------------------------------------------------");
+//        insertStudent();
+        insertStudentBatch();
+//        updateStudent();
+//        select(1);
+//        select(2);
+//        select(3);
+//        select(4);
+//        select(5);
+//        Date sd = new Date();
+//        Date ed = new Date();
+//        sd.setDate(19);
+//        ed.setDate(21);
+//        selectByDate(sd, ed);
+    }
+
+    static void insertStudent(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
+        StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
+        Student student = new Student();
+        student.setId(1);
+        student.setName("f");
+        student.setIcon("啦啦");
+        Date now = new Date();
+        student.setIcon("哈哈");
+
+        student.setCreate_time(now);
+        student.setEnabled(false);
+        studentMapper.insertStudent(student);
+    }
+
+    static void insertStudentBatch(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
+        StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
+        Student student = new Student();
+        student.setId(1);
+        student.setName("f");
+        student.setIcon("啦啦");
+        Date now = new Date();
+        student.setIcon("哈哈");
+
+        student.setCreate_time(now);
+        student.setEnabled(false);
+        studentMapper.insertStudentBatch(student);
+    }
+
+    static void select(int id){
+        ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
+        StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
+//        System.out.println(studentMapper.getById(id).getIcon());
+//        System.out.println(studentMapper.getById(id).getCreate_time());
+        System.out.println(studentMapper.getById(id).getEnabled());
+    }
+
+    static void updateStudent(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
+        StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
+
+        Student student = studentMapper.getById(1);
+        Date now = new Date();
+//        student.setIcon(null);
+        student.setIcon("嘻嘻");
+
+        student.setCreate_time(now);
+        student.setEnabled(true);
+        studentMapper.updateStudent(student);
+    }
+
+    static void selectByDate(Date sd , Date ed){
+        ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
+        StudentMapper studentMapper = ((StudentMapper) context.getBean("studentMapper"));
+//        System.out.println(studentMapper.getById(id).getIcon());
+//        System.out.println(studentMapper.getById(id).getCreate_time());
+        System.out.println(studentMapper.getByDate(sd, ed));
+    }
+
+
+}
