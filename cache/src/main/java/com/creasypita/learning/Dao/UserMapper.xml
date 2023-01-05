@@ -9,7 +9,10 @@
     <select id="findUserById" resultMap="userMap">
         select id , name,pwd, user_age as age from User where id = #{id}
     </select>
-    <select id="selectByIdWithCache" resultMap="userMap">
+    <select id="selectByIdWithLocalCache" resultMap="userMap">
+        select id , name,pwd, user_age as age from User where id = #{id}
+    </select>
+    <select id="selectByIdWithSecondLevelCache" resultMap="userMap">
         select id , name,pwd, user_age as age from User where id = #{id}
     </select>
     <select id="selectByIdWithoutCache" resultMap="userMap" flushCache="true">

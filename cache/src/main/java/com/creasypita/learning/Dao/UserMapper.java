@@ -8,7 +8,9 @@ import com.creasypita.learning.model.User;
 public interface UserMapper {
     User findUserById(int id);
 
-    User selectByIdWithCache(int id);
+    User selectByIdWithLocalCache(int id);
+
+    User selectByIdWithSecondLevelCache(int id);
 
     User selectByIdWithoutCache(int id);
 

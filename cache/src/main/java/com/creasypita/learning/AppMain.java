@@ -27,9 +27,9 @@ public class AppMain
                 new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        User firstSelectWithCache = mapper.selectByIdWithCache(1);
+        User firstSelectWithCache = mapper.selectByIdWithLocalCache(1);
         System.out.println("first query with cache:" + firstSelectWithCache.getName());
-        User secondSelectWithCache = mapper.selectByIdWithCache(1);
+        User secondSelectWithCache = mapper.selectByIdWithLocalCache(1);
         System.out.println("second query with cache:" + secondSelectWithCache.getName());
         User firstSelectWithoutCache = mapper.selectByIdWithoutCache(1);
         System.out.println("first query without cache:" + firstSelectWithoutCache.getName());
