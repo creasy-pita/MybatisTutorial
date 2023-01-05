@@ -15,5 +15,6 @@
         <module>Spring-MybatisTest</module>
         <module>typeHandlerDemo</module>
         <module>multiDataBaseDemo</module>
+        <module>cache</module>
     </modules>
 </project>
