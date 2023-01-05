@@ -21,7 +21,7 @@ public class ApplicationTest {
 ////        student.setId(1);
 //        student.setEmail("aaa");
 //        studentMapper.insertStudent(student);
-        System.out.println(studentMapper.GetAll().get(3).getId());
+//        System.out.println(studentMapper.GetAll().get(3).getId());
 
 
     }

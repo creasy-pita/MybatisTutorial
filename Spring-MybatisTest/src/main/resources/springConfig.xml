@@ -35,17 +35,18 @@
     </bean>
 <!--第一种bean声明mapper方式-->
 
-    <bean id="studentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="learning.mappers.StudentMapper"/>
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
+<!--    <bean id="studentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+<!--        <property name="mapperInterface" value="learning.mappers.StudentMapper"/>-->
+<!--        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
+<!--    </bean>-->
 <!-- -->
     <!--第2种bean声明mapper方式-->
 <!--    <mybatis:scan base-package="learning.mappers"/>-->
 <!--    -->
     <!--第3种bean声明mapper方式-->
-    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-        <!--<property name="basePackage" value="com.creasypita.learning.mappers.*" />-->
-    <!--</bean>-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+<!--        <property name="basePackage" value="com.creasypita.learning.mappers.*" />-->
+        <property name="basePackage" value="learning.mappers" />
+    </bean>
     <!--    -->
 </beans>
