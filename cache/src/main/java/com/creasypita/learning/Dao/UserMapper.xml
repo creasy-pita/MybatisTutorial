@@ -12,7 +12,7 @@
     <select id="selectByIdWithLocalCache" resultMap="userMap">
         select id , name,pwd, user_age as age from User where id = #{id}
     </select>
-    <select id="selectByIdWithSecondLevelCache" resultMap="userMap">
+    <select id="selectByIdWithSecondLevelCache" resultMap="userMap" useCache="true">
         select id , name,pwd, user_age as age from User where id = #{id}
     </select>
     <select id="selectByIdWithoutCache" resultMap="userMap" flushCache="true">
@@ -21,4 +21,6 @@
     <insert id="addUser" parameterType="user">
         insert User (id, name,pwd,user_age) values(#{id},#{name},#{pwd},#{age})
     </insert>
+<!--    开启一级缓存 不同会话共享-->
+    <cache/>
 </mapper>
