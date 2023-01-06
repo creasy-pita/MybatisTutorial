@@ -8,9 +8,19 @@
     <version>1.0.0</version>
     <dependencies>
         <dependency>
+            <groupId>ognl</groupId>
+            <artifactId>ognl</artifactId>
+            <version>3.1.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.22.0-GA</version>
+        </dependency>
+        <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.5.2</version>
+            <version>3.4.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
