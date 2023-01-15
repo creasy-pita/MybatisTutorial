@@ -8,6 +8,12 @@
     <artifactId>MybatisTutorial</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
+        <maven.compiler.testSource>1.8</maven.compiler.testSource>
+    </properties>
     <modules>
         <module>chapter03</module>
         <module>chapter05</module>
