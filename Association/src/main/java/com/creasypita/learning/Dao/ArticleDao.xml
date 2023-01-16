@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.creasypita.learning.Dao.ArticleDao">
+    <resultMap id="articleResult" type="com.creasypita.learning.model.Article">
+        <result property="title" column="title"/>
+        <association property="author" column="author_id" javaType="com.creasypita.learning.model.Author" select="findAuthor"/>
+    </resultMap>
+
+    <select id="findOne" resultMap="articleResult">
+        SELECT
+        id, author_id, title, content
+        FROM
+        article
+        WHERE
+        id = #{id}
+    </select>
+
+    <select id="findAuthor" resultType="com.creasypita.learning.model.Author">
+        SELECT
+        id, name, age, sex, email
+        FROM
+        author
+        WHERE
+        id = #{id}
+    </select>
+</mapper>
