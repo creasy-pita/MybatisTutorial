@@ -9,6 +9,9 @@
     <select id="findUserById" resultMap="userMap">
         select id , name,pwd, user_age as age from User where id = #{id}
     </select>
+    <select id="findUsers" resultMap="userMap">
+        select id , name,pwd, user_age as age from User
+    </select>
     <insert id="addUser" parameterType="user">
         insert User (id, name,pwd,user_age) values(#{id},#{name},#{pwd},#{age})
     </insert>

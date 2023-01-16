@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by lujq on 10/17/2021.
@@ -27,12 +28,14 @@ public class AppMain
                 new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        User user = new User();
-        user.setId(1);
-        user.setName("tom");
-        user.setPwd("123");
-        mapper.addUser(user);
-        sqlSession.commit();
+        List<User> users = mapper.findUsers();
+
+//        User user = new User();
+//        user.setId(1);
+//        user.setName("tom");
+//        user.setPwd("123");
+//        mapper.addUser(user);
+//        sqlSession.commit();
         sqlSession.close();
         System.out.println("success");
     }
