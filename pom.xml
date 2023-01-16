@@ -22,6 +22,7 @@
         <module>typeHandlerDemo</module>
         <module>multiDataBaseDemo</module>
         <module>cache</module>
+        <module>Association</module>
     </modules>
     <dependencies>
         <dependency>
